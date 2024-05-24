@@ -1,0 +1,35 @@
+#include <iostream>
+
+class Car {
+public:
+    Car() : speed(0.1), wheels(0), price(0.2) {}
+
+    void klaxon(int intensity) {
+        std::cout << "Klaxon: Beep! Beep! Intensity: " << intensity << std::endl;
+    }
+    void speedChange(float newSpeed) {
+        std::cout << "Speed Change: " << speed << " -> " << newSpeed << std::endl;
+        speed = newSpeed;
+    }
+    friend class Engineer;
+protected:
+    float speed;
+    int wheels;
+private:
+    float price;
+};
+class Engineer {
+public:
+    void accessCarDataAndFunctions(Car* car) {
+        std::cout << "Speed: " << car->speed << std::endl;
+        std::cout << "Wheels: " << car->wheels << std::endl;
+        car->klaxon(2);
+        car->speedChange(50.0);
+    }
+};
+int main() {
+    Car newCar;
+    Engineer engineer;
+    engineer.accessCarDataAndFunctions(&newCar);
+    return 0;
+}
